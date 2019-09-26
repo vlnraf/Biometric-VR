@@ -17,7 +17,7 @@ result = pd.concat(li, axis = 1, sort = False)
 
 #combined_csv = pd.concat(li, axis=0, ignore_index=True, sort = False)
 
-result.to_csv("dati/Emilio/combined_csv.csv", index=False, encoding='utf-8-sig')
+result.to_csv("dati/Emiliocombined_csv.csv", index=False, encoding='utf-8-sig')
 
 #combined_csv.to_csv("dati/Emilio/combined_csv.csv", index=False, encoding='utf-8-sig')
 
