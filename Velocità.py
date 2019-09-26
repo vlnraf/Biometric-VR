@@ -44,7 +44,8 @@ else:
 
         velocita = distot/tempotot
 
-        #VELOCITÀ MEDIA AL SECONDO
+        #VELOCITÀ MEDIA AL SECONDO DA CAMBIARE FORSE
+        #MOLTIPLICANDO TUTTO CON 0,3 OPPURE DIVIDENDO CON 3
 
         i=2
         while i < len(dis):
@@ -101,7 +102,8 @@ else:
 
         velocitadx = disdxtot/tempotot
 
-        #VELOCITÀ MEDIA CONTROLLER SINGOLI AL SECONDO
+        #VELOCITÀ MEDIA CONTROLLER SINGOLI AL SECONDO DA CAMBIARE FORSE
+        #MOLTIPLICANDO TUTTO CON 0,3 OPPURE DIVIDENDO CON 3
         velSx.append(0.0)
 
         i=2
