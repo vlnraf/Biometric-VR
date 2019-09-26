@@ -1,10 +1,10 @@
 import pandas as pd
 import glob
 import sys
+import matplotlib.pyplot as plt
 
 path = 'dati/'+ str(sys.argv[1]) # use your path
 all_files = glob.glob(path + "/*.csv")
-
 li = []
 
 for filename in all_files:
@@ -22,3 +22,5 @@ result.to_csv('dati/datiCompleti/'+str(sys.argv[1])+'.csv', index=False, encodin
 
 #combined_csv.to_csv("dati/Emilio/combined_csv.csv", index=False, encoding='utf-8-sig')
 
+result.plot()
+plt.show()
