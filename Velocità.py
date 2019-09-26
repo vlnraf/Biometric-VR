@@ -46,12 +46,13 @@ else:
 
         #VELOCITÀ MEDIA AL SECONDO
 
-        for i in range(2,len(dis)):
+        i=2
+        while i < len(dis):
             temp1 = dis[i] + dis[i-1] + dis[i-2]
             vel.append(round(temp1, 2))
             i += 3
 
-        print(vel)
+        print(len(vel))
 
         #k = 1
         '''for i in range(0, len(dis)-1):
@@ -101,21 +102,25 @@ else:
         velocitadx = disdxtot/tempotot
 
         #VELOCITÀ MEDIA CONTROLLER SINGOLI AL SECONDO
-        
-        for i in range(2,len(dissx)):
+        velSx.append(0.0)
+
+        i=2
+        while i < len(disdx):
             temp2 = dissx[i] + dissx[i-1] + dissx[i-2]
             velSx.append(round(temp2, 2))
             i += 3
 
-        print(velSx)
+        print(len(velSx))
             
-        for i in range(2,len(disdx)):
+        velDx.append(0.0)
+
+        i=2
+        while i < len(disdx):
             temp3 = disdx[i] + disdx[i-1] + disdx[i-2]
             velDx.append(round(temp3, 2))
             i += 3
 
-        print(velDx)
-   
+        print(len(velDx))
         '''
         k = 1
         for i in range(0, len(disdx)-1):
