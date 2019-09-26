@@ -15,8 +15,7 @@ for filename in all_files:
 
 result = pd.concat(li, axis = 1, sort = False)
 
-
-#combined_csv = pd.concat(li, axis=0, ignore_index=True, sort = False) per combinare più files uno sotto l' altro
+combined_csv = pd.concat(li, axis=0, ignore_index=True, sort = False) #per combinare più files uno sotto l' altro
 
 result.to_csv('dati/datiCompleti/'+str(sys.argv[1])+'.csv', index=False, encoding='utf-8-sig')
 
