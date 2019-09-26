@@ -26,23 +26,32 @@ else:
             next(csvfile)
 
         
-        #VELOCITA' DISTANZA TRA DUE CONTROLLER
+        #VELOCITÀ DISTANZA TRA DUE CONTROLLER
 
         vel = []
         dis = []
         temp = []
 
+        dis.append(0)
+
+        #VELOCITÀ SCALARE MEDIA
         for row in readCSV:
             dis.append(float(row[0]))
-
-        print(dis)
 
         distot = 0
         for i in dis:
             distot += i
 
         velocita = distot/tempotot
-        print(velocita)
+
+        #VELOCITÀ MEDIA AL SECONDO
+
+        for i in range(2,len(dis)):
+            temp1 = dis[i] + dis[i-1] + dis[i-2]
+            vel.append(round(temp1, 2))
+            i += 3
+
+        print(vel)
 
         #k = 1
         '''for i in range(0, len(dis)-1):
@@ -65,16 +74,16 @@ else:
             next(csvfile1)
 
 
-        veldx = []
+        velDx = []
         disdx = []
         tempdx = []
-        velsx = []
+        velSx = []
         dissx = []
         tempsx = []
         disdxtot = 0.0
         dissxtot = 0.0 
 
-        #VELOCITA' CONTROLLER DESTRO
+        #VELOCITA' MEDIA CONTROLLER SINGOLI SCALARE
         
         for row in readCSVmani:
             disdx.append(float(row[0]))
@@ -82,18 +91,30 @@ else:
 
         
         for i in dissx:
-        	dissxtot += i 
+        	dissxtot += i
 
         velocitasx = dissxtot/tempotot
 
         for i in disdx:
-        	disdxtot += i 
+        	disdxtot += i
 
         velocitadx = disdxtot/tempotot
 
+        #VELOCITÀ MEDIA CONTROLLER SINGOLI AL SECONDO
+        
+        for i in range(2,len(dissx)):
+            temp2 = dissx[i] + dissx[i-1] + dissx[i-2]
+            velSx.append(round(temp2, 2))
+            i += 3
 
-        print(velocitadx)
-        print(velocitasx)
+        print(velSx)
+            
+        for i in range(2,len(disdx)):
+            temp3 = disdx[i] + disdx[i-1] + disdx[i-2]
+            velDx.append(round(temp3, 2))
+            i += 3
+
+        print(velDx)
    
         '''
         k = 1
