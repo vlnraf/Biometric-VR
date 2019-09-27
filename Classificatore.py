@@ -3,6 +3,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
+from scikitplot.metrics import plot_confusion_matrix
+import matplotlib.pyplot as plt
 
 data = pandas.read_csv('dati/datiCompleti/dataset.csv', usecols = ['distanza','distanzaDx','distanzaSx'])
 predict = pandas.read_csv('dati/datiCompleti/dataset.csv', usecols = ['Sesso'])
@@ -21,6 +23,10 @@ p_test = model.predict(X_test)
 
 acc_train = accuracy_score(y_train, p_train)
 acc_test = accuracy_score(y_test, p_test)
+
+plot_confusion_matrix(y_test, p_test)
+
+plt.show()
 
 print(confusion_matrix(y_test, p_test))
 
