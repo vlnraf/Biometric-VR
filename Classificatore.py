@@ -17,9 +17,12 @@ model.fit(X_train,y_train)
 
 p_train = model.predict(X_train)
 p_test = model.predict(X_test)
+prob = model.predict_proba(X_train)
+probability = model.predict_proba(X_test)
 
 acc_train = accuracy_score(y_train, p_train)
 acc_test = accuracy_score(y_test, p_test)
 
-print( f'Train {acc_train}, test {acc_test}')
+#print( f'Train {acc_train}, test {acc_test}')
+print( f'Train {prob}, test {probability}')
 
