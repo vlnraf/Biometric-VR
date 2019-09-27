@@ -62,6 +62,13 @@ sqxyz = []
 sqxyzDx = []
 sqxyzSx = []
 
+xxDx.append(0.0)
+xxSx.append(0.0)
+yyDx.append(0.0)
+yySx.append(0.0)
+zzDx.append(0.0)
+zzSx.append(0.0)
+
 for i in range(0,len(x1)):
     x = x1[i] - x2[i]
     x = x * x
