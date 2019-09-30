@@ -13,7 +13,10 @@ else:
     t = 1
     tempotot = 110.4
 
+
+
     with open("dati/"+str(sys.argv[1])+"/distanzaController.csv", "r") as csvfile:
+        
         '''if csvfile.mode == "r":
             f = csvfile.readlines() #Estrarre gli elementi leggendo solo la linea
         '''
@@ -32,7 +35,6 @@ else:
         dis = []
         temp = []
 
-        dis.append(0)
 
         #VELOCITÀ SCALARE MEDIA
         for row in readCSV:
@@ -47,13 +49,15 @@ else:
         #VELOCITÀ MEDIA AL SECONDO DA CAMBIARE FORSE
         #MOLTIPLICANDO TUTTO CON 0,3 OPPURE DIVIDENDO CON 3
 
-        i=2
+        i=0
         while i < len(dis):
-            temp1 = dis[i] + dis[i-1] + dis[i-2]
+            #temp1 = dis[i] + dis[i-1] + dis[i-2]
+            temp1 = dis[i]*0.3
             vel.append(round(temp1, 2))
-            i += 3
+            #i += 3
+            i += 1
 
-        print(len(vel))
+        #print(len(vel))
 
         #k = 1
         '''for i in range(0, len(dis)-1):
@@ -67,6 +71,10 @@ else:
         '''if csvfile.mode == "r":
             f = csvfile.readlines() #Estrarre gli elementi leggendo solo la linea
         '''
+        
+        file=open('dati/'
+            +str(sys.argv[1])+'/1_3'
+            +str(sys.argv[1])+'.csv',"r")
 
         #Rimozione header
 
@@ -104,44 +112,35 @@ else:
 
         #VELOCITÀ MEDIA CONTROLLER SINGOLI AL SECONDO DA CAMBIARE FORSE
         #MOLTIPLICANDO TUTTO CON 0,3 OPPURE DIVIDENDO CON 3
-        velSx.append(0.0)
 
-        i=2
+        i=0
         while i < len(disdx):
-            temp2 = dissx[i] + dissx[i-1] + dissx[i-2]
-            velSx.append(round(temp2, 2))
-            i += 3
+            #temp2 = dissx[i] + dissx[i-1] + dissx[i-2]
+            temp2 = disdx[i]*0.3 
+            velDx.append(round(temp2, 2))
+            #i += 3
+            i += 1
 
-        print(len(velSx))
+        #print(len(velDx))
             
-        velDx.append(0.0)
 
-        i=2
-        while i < len(disdx):
-            temp3 = disdx[i] + disdx[i-1] + disdx[i-2]
-            velDx.append(round(temp3, 2))
-            i += 3
+        i=0
+        while i < len(dissx):
+            #temp3 = disdx[i] + disdx[i-1] + disdx[i-2]
+            temp3 = dissx[i]*0.3 
+            velSx.append(round(temp3, 2))
+            #i += 3
+            i += 1 
 
-        print(len(velDx))
-        '''
-        k = 1
-        for i in range(0, len(disdx)-1):
-            tempdx.append(abs(disdx[k] - disdx[i]))        #abs probabilmente tronca i num negativi
-            k += 1
-            veldx.append(round(tempdx[i] / t, 1))
+        #print(len(velSx))
 
-        print(veldx)
-
-        #VELOCITA' CONTROLLER SINISTRO
-
-        k = 1
-        for i in range(0, len(dissx)-1):
-            tempsx.append(abs(dissx[k] - dissx[i]))        #abs probabilmente tronca i num negativi
-            k += 1
-            velsx.append(round(tempsx[i] / t, 1))
-            
-    print(velsx)
-	'''
+        with open('dati/'+str(sys.argv[1])+'/evelocity.csv','w',newline='') as file:
+            fieldnames=['velocityDx','velocitySx','velocity']
+            writer = csv.DictWriter(file, fieldnames = fieldnames)
+            writer.writeheader()
+            for s in range(0,len(velDx)):
+                writer.writerow({'velocityDx':"%f" %velDx[s],'velocitySx':"%f" %velSx[s],'velocity':"%f" %vel[s]})
+    #print(velSx)
 
 
 '''print(vel)
