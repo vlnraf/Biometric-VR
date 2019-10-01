@@ -1,9 +1,11 @@
 # K-Means Clustering
 
 # Importing the libraries
-import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+from yellowbrick.cluster import KElbowVisualizer
 
 # Importing the dataset
 dataframe = pd.read_csv('dataset.csv')
@@ -11,49 +13,38 @@ dataframe = pd.read_csv('dataset.csv')
 dataset = dataframe.values
 
 X = dataset[:,0:6]
-
-# Splitting the dataset into the Training set and Test set
-'''
-from sklearn.cross_validation import train_test_split
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
-'''
-
-'''
-# Feature Scaling
-from sklearn.preprocessing import StandardScaler
-sc_X = StandardScaler()
-X_train = sc_X.fit_transform(X_train)
-X_test = sc_X.transform(X_test)
-sc_y = StandardScaler()
-y_train = sc_y.fit_transform(y_train)
-'''
-
-from sklearn.cluster import KMeans
-wcss = []
-for i in range(1, 11):
-    kmeans = KMeans(n_clusters = i, init = 'k-means++', random_state = 42)
-    kmeans.fit(X)
-    wcss.append(kmeans.inertia_)
-plt.plot(range(1, 11), wcss)
-plt.title('The Elbow Method')
-plt.xlabel('Number of clusters')
-plt.ylabel('WCSS')
-plt.show()
+y = dataset[:,6]
 
 # Fitting K-Means to the dataset
-kmeans = KMeans(n_clusters = 5, init = 'k-means++', random_state = 42)
-y_kmeans = kmeans.fit_predict(X)
+kmeans = KMeans(n_clusters = 2, init = 'k-means++', random_state = 0)
+y_kmeans = kmeans.fit(X)
+centers = kmeans.cluster_centers_
+print(centers)
+new_labels=kmeans.labels_
+print(new_labels)
 
-# Visualising the clusters
-plt.scatter(X[y_kmeans == 0, 0], X[y_kmeans == 0, 1], s = 100, c = 'red', label = 'Cluster 1')
-plt.scatter(X[y_kmeans == 1, 0], X[y_kmeans == 1, 1], s = 100, c = 'blue', label = 'Cluster 2')
-plt.scatter(X[y_kmeans == 2, 0], X[y_kmeans == 2, 1], s = 100, c = 'green', label = 'Cluster 3')
-plt.scatter(X[y_kmeans == 3, 0], X[y_kmeans == 3, 1], s = 100, c = 'cyan', label = 'Cluster 4')
-plt.scatter(X[y_kmeans == 4, 0], X[y_kmeans == 4, 1], s = 100, c = 'magenta', label = 'Cluster 5')
-plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s = 300, c = 'yellow', label = 'Centroids')
-plt.title('Clusters of users')
-plt.xlabel('Assex')
-plt.ylabel('Assey')
+fig, axes = plt.subplots(1, 2, figsize=(16,8))
+axes[0].scatter(X[:,0],X[:,1], c='green',edgecolor='k', s=50)
+axes[0].scatter(X[:,3],X[:,4], c='blue',edgecolor='k', s=50)
+axes[1].scatter(X[:,0],X[:,1], c='green',edgecolor='k', s=50)
+axes[1].scatter(X[:,3],X[:,4], c='blue',edgecolor='k', s=50)
+plt.scatter(kmeans.cluster_centers_[:,0], kmeans.cluster_centers_[:,1],s = 300, c = 'yellow', label = 'Centroids velocity')
+plt.scatter(kmeans.cluster_centers_[:,3], kmeans.cluster_centers_[:,4],s = 300, c = 'red', label = 'Centroids distance')
+
+'''
+axes[0].set_xlabel('Destra',fontsize=18)
+axes[0].set_ylabel('Sinistra',fontsize=18)
+axes[1].set_xlabel('Destra',fontsize=18)
+axes[1].set_ylabel('Sinistra',fontsize=18)
+'''
+axes[0].set_title('Effettivo',fontsize=18)
+axes[1].set_title('Previsto',fontsize=18)
+
+print(silhouette_score(X,kmeans.labels_, metric="euclidean"))
+
+visualizer = KElbowVisualizer(kmeans, k=(2,6), metric='silhouette', timings=False)
 plt.legend()
 plt.show()
+
+visualizer.fit(X)
+visualizer.poof()
