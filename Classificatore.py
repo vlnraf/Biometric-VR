@@ -6,7 +6,7 @@ from sklearn.metrics import confusion_matrix
 from scikitplot.metrics import plot_confusion_matrix
 import matplotlib.pyplot as plt
 
-data = pandas.read_csv('dati/datiCompleti/dataset.csv', usecols = ['distanza','distanzaDx','distanzaSx'])
+data = pandas.read_csv('dati/datiCompleti/dataset.csv', usecols = ['velocityDx','velocitySx','velocity','distanza','distanzaDx','distanzaSx'])
 predict = pandas.read_csv('dati/datiCompleti/dataset.csv', usecols = ['Sesso'])
 
 X = data
