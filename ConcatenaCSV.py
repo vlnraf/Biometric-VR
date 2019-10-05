@@ -20,5 +20,5 @@ result.to_csv('dati/datiCompleti/'+str(sys.argv[1])+'.csv', index=False, encodin
 
 #combined_csv.to_csv("dati/Emilio/combined_csv.csv", index=False, encoding='utf-8-sig')
 
-result.plot()
-plt.show()
+#result.plot()
+#plt.show()
