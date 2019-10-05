@@ -1,6 +1,7 @@
 import numpy as np
 import numpy
 import pandas
+import seaborn as sns
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.wrappers.scikit_learn import KerasClassifier
@@ -8,6 +9,7 @@ from keras.utils import np_utils
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
@@ -26,9 +28,9 @@ from scikitplot.metrics import plot_confusion_matrix
 def baseline_model():
   # create model
   model = Sequential()
-  model.add(Dense(500, activation='relu', input_dim=6))
-  model.add(Dense(200, activation='relu'))
+  model.add(Dense(330, activation='relu', input_dim=5))
   model.add(Dense(100, activation='relu'))
+  model.add(Dense(50, activation='relu'))
   model.add(Dense(2, activation='softmax'))
 
   # Compile model
@@ -39,16 +41,28 @@ seed = 7
 numpy.random.seed(seed)
 
 n_classes = 2
+s=sadjafnjewk
+
+
+adniaiofa
+
+af
+af
+aef
+aefa
 
 dataframe = pandas.read_csv("dataset.csv", header=None,sep = ",")
+dataframe_test = pandas.read_csv("Emilio.csv", header=None,sep = ",")
 
 #data = pandas.read_csv('dataset.csv', usecols = ['distanza','distanzaDx','distanzaSx'])
 #predict = pandas.read_csv('dataset.csv', usecols = ['Sesso'])
 
 dataset = dataframe.values
+dataset_test = dataframe_test.values
 
-X = dataset[:,0:6]
-Y = dataset[:,6]
+X = dataset[:,0:5]
+Y = dataset[:,5]
+#Y = dataset_test[:,6]
 encoder = LabelEncoder()
 encoder.fit(Y)
 encoded_Y = encoder.transform(Y)
@@ -62,24 +76,31 @@ print(dummy_x)
 
 print(Y)
 
-X_train, X_test, y_train, y_test = train_test_split(dummy_x,Y, test_size = 0.3)
+#X_train, X_test, y_train, y_test = train_test_split(dummy_x,Y)
+X_train, X_test, y_train, y_test = train_test_split(dummy_x,Y, test_size = 0.3, shuffle=False)
 
 print('Calcolo...')
 
-
 keras_model = baseline_model()
-history = keras_model.fit(X_train, y_train, epochs = 79, batch_size = 330, verbose = 1,validation_split=0.33)
+history = keras_model.fit(X_train, y_train, epochs = 100, batch_size = 330, verbose = 1,validation_split=0.33)
 
 y_score = keras_model.predict(X_test)
 score = keras_model.evaluate(X_test, y_test, verbose=0)
 score1 = keras_model.evaluate(X_train, y_train, verbose=0)
-print("Accuracy Train: %.2f%%" % (score1[1]*100))
-print("Accuracy Test: %.2f%%" % (score[1]*100))
+
+
+y_test2 = [np.argmax(t) for t in y_test]
+y_pred = [np.argmax(t) for t in y_score]
+cm = confusion_matrix(y_test2, y_pred)
+
 
 predictions = keras_model.predict_classes(X_test)
 
 for i in range(len(X_test)):
 	print('(Prediction %d) => (expected %s)' % (predictions[i], y_test[i]))
+print("Accuracy Train: %.2f%%" % (score1[1]*100))
+print("Accuracy Test: %.2f%%" % (score[1]*100))
+
 print(history.history.keys())
 # summarize history for accuracy
 plt.plot(history.history['accuracy'])
@@ -98,3 +119,5 @@ plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 #print(confusion_matrix(y_test, predictions))
+plot_confusion_matrix(y_test2, y_pred, cmap=plt.cm.Oranges)
+plt.show()
