@@ -18,6 +18,7 @@ z1=[]
 x2=[]
 y2=[]
 z2=[]
+altezza=[]
 
 '''for line in file:
     row_data = line.strip(',').split()
@@ -42,6 +43,7 @@ with open('dati/'
         x2.append(float(row[3]))
         y2.append(float(row[4]))
         z2.append(float(row[5]))
+        altezza.append(float(row[6]))
         #print(row)
 
 
@@ -140,4 +142,10 @@ with open('dati/'+str(sys.argv[1])+'/distanzaSingoliController.csv','w',newline=
     for numb2 in range(0,len(sqxyzDx)):
         writer.writerow({'distanzaDx':"%f" %sqxyzDx[numb2], 'distanzaSx':"%f" %sqxyzSx[numb2]})
 
+with open('dati/'+str(sys.argv[1])+'/altezza.csv','w',newline='') as csv_file:
+    fieldnames = ['altezza']
+    writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+    writer.writeheader()
+    for numb3 in altezza:
+        writer.writerow({'altezza':"%.2f" %numb3})
 #plt.show()

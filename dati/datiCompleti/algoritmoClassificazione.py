@@ -28,7 +28,7 @@ from scikitplot.metrics import plot_confusion_matrix
 def baseline_model():
   # create model
   model = Sequential()
-  model.add(Dense(330, activation='relu', input_dim=5))
+  model.add(Dense(330, activation='relu', input_dim=4))
   model.add(Dense(100, activation='relu'))
   model.add(Dense(50, activation='relu'))
   model.add(Dense(2, activation='softmax'))
@@ -41,27 +41,18 @@ seed = 7
 numpy.random.seed(seed)
 
 n_classes = 2
-s=sadjafnjewk
-
-
-adniaiofa
-
-af
-af
-aef
-aefa
 
 dataframe = pandas.read_csv("dataset.csv", header=None,sep = ",")
-dataframe_test = pandas.read_csv("Emilio.csv", header=None,sep = ",")
+#dataframe_test = pandas.read_csv("Emilio.csv", header=None,sep = ",")
 
 #data = pandas.read_csv('dataset.csv', usecols = ['distanza','distanzaDx','distanzaSx'])
 #predict = pandas.read_csv('dataset.csv', usecols = ['Sesso'])
 
 dataset = dataframe.values
-dataset_test = dataframe_test.values
+#dataset_test = dataframe_test.values
 
-X = dataset[:,0:5]
-Y = dataset[:,5]
+X = dataset[:,0:4]
+Y = dataset[:,4]
 #Y = dataset_test[:,6]
 encoder = LabelEncoder()
 encoder.fit(Y)
@@ -77,12 +68,12 @@ print(dummy_x)
 print(Y)
 
 #X_train, X_test, y_train, y_test = train_test_split(dummy_x,Y)
-X_train, X_test, y_train, y_test = train_test_split(dummy_x,Y, test_size = 0.3, shuffle=False)
+X_train, X_test, y_train, y_test = train_test_split(dummy_x,Y, test_size = 0.3,)
 
 print('Calcolo...')
 
 keras_model = baseline_model()
-history = keras_model.fit(X_train, y_train, epochs = 100, batch_size = 330, verbose = 1,validation_split=0.33)
+history = keras_model.fit(X_train, y_train, epochs = 30, batch_size = 330, verbose = 1,validation_split=0.33)
 
 y_score = keras_model.predict(X_test)
 score = keras_model.evaluate(X_test, y_test, verbose=0)

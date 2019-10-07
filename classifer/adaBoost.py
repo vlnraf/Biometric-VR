@@ -6,14 +6,13 @@ from sklearn.metrics import confusion_matrix
 from scikitplot.metrics import plot_confusion_matrix
 import matplotlib.pyplot as plt
 
-data = pandas.read_csv('../dati/datiCompleti/dataset1.csv', usecols = ['distanza','y','y2','distanzaDx','distanzaSx'])
+data = pandas.read_csv('../dati/datiCompleti/dataset1.csv', usecols = ['distanza','altezza','distanzaDx','distanzaSx'])
 predict = pandas.read_csv('../dati/datiCompleti/dataset1.csv', usecols = ['Sesso'])
 
 X = data
 y = predict
 
-
-X_train,X_test,y_train,y_test = train_test_split(X,y, test_size = 0.3, shuffle=False)
+X_train,X_test,y_train,y_test = train_test_split(X,y.values.ravel(), test_size = 0.3)
 
 model = AdaBoostClassifier()
 model.fit(X_train,y_train)
@@ -31,3 +30,4 @@ plt.show()
 print(confusion_matrix(y_test, p_test))
 
 print( f'Train {acc_train}, test {acc_test}')
+
