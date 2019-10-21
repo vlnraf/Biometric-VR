@@ -68,19 +68,18 @@ print('Calcolo...')
 
 
 keras_model = baseline_model()
-history = keras_model.fit(X_train, y_train, epochs = 100, batch_size = 330, verbose = 1,validation_split=0.33)
+history = keras_model.fit(X_train, y_train, epochs = 100, batch_size = 331, verbose = 1,validation_split=0.33)
 
 y_score = keras_model.predict(X_test)
 score = keras_model.evaluate(X_test, y_test, verbose=0)
 score1 = keras_model.evaluate(X_train, y_train, verbose=0)
-print("Accuracy Train: %.2f%%" % (score1[1]*100))
-print("Accuracy Test: %.2f%%" % (score[1]*100))
+
 
 predictions = keras_model.predict_classes(X_test)
 
-for i in range(len(X_test)):
-	print('(Prediction %d) => (expected %s)' % (predictions[i], y_test[i]))
-'''
+#for i in range(len(X_test)):
+#	print('(Prediction %d) => (expected %s)' % (predictions[i], y_test[i]))
+
 print(history.history.keys())
 # summarize history for accuracy
 plt.plot(history.history['accuracy'])
@@ -98,5 +97,15 @@ plt.ylabel('loss')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.show()
-'''
-#print(confusion_matrix(y_test, predictions))
+
+
+test = []
+predict = []
+
+for i in range(len(X_test)):
+	test.append(y_test[i])
+	predict.append(predictions[i])
+
+#print(confusion_matrix(test,predict))
+print("Accuracy Train: %.2f%%" % (score1[1]*100))
+print("Accuracy Test: %.2f%%" % (score[1]*100))
