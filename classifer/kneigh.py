@@ -1,4 +1,5 @@
 import pandas
+from sklearn import model_selection
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
@@ -6,6 +7,22 @@ from sklearn.metrics import confusion_matrix
 from scikitplot.metrics import plot_confusion_matrix
 import matplotlib.pyplot as plt
 
+data = pandas.read_csv('../dati/datiCompleti/dataset1.csv', usecols = ['distanza','altezza','distanzaDx','distanzaSx'])
+predict = pandas.read_csv('../dati/datiCompleti/dataset1.csv', usecols = ['Sesso'])
+
+scores=[]
+
+X = data.values
+y = predict.values.ravel()
+
+model = KNeighborsClassifier()
+
+kfold = model_selection.KFold(n_splits=30, shuffle=False)
+model_kfold = KNeighborsClassifier()
+results_kfold = model_selection.cross_val_score(model, X, y, cv=kfold)
+print("Accuracy: %.2f%%" % (results_kfold.mean()*100.0)) 
+
+'''
 data = pandas.read_csv('../dati/datiCompleti/dataset1.csv', usecols = ['distanza','altezza','distanzaDx','distanzaSx'])
 predict = pandas.read_csv('../dati/datiCompleti/dataset1.csv', usecols = ['Sesso'])
 
@@ -31,3 +48,4 @@ plt.show()
 print(confusion_matrix(y_test, p_test))
 
 print( f'Train {acc_train}, test {acc_test}')
+'''

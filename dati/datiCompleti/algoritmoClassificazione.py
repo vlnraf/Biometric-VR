@@ -68,12 +68,12 @@ print(dummy_x)
 print(Y)
 
 #X_train, X_test, y_train, y_test = train_test_split(dummy_x,Y)
-X_train, X_test, y_train, y_test = train_test_split(dummy_x,Y, test_size = 0.3,)
+X_train, X_test, y_train, y_test = train_test_split(dummy_x,Y, test_size = 0.3)
 
 print('Calcolo...')
 
 keras_model = baseline_model()
-history = keras_model.fit(X_train, y_train, epochs = 30, batch_size = 330, verbose = 1,validation_split=0.33)
+history = keras_model.fit(X_train, y_train, epochs = 50, batch_size = 330, verbose = 1,validation_split=0.33)
 
 y_score = keras_model.predict(X_test)
 score = keras_model.evaluate(X_test, y_test, verbose=0)

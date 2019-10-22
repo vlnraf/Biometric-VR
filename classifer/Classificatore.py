@@ -1,4 +1,5 @@
 import pandas
+from sklearn import model_selection
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
@@ -6,6 +7,23 @@ from sklearn.metrics import confusion_matrix
 from scikitplot.metrics import plot_confusion_matrix
 import matplotlib.pyplot as plt
 
+
+data = pandas.read_csv('../dati/datiCompleti/dataset1.csv', usecols = ['distanza','altezza','distanzaDx','distanzaSx'])
+predict = pandas.read_csv('../dati/datiCompleti/dataset1.csv', usecols = ['Sesso'])
+
+scores=[]
+
+X = data.values
+y = predict.values.ravel()
+
+model = DecisionTreeClassifier()
+
+kfold = model_selection.KFold(n_splits=30, shuffle=False)
+model_kfold = DecisionTreeClassifier()
+results_kfold = model_selection.cross_val_score(model, X, y, cv=kfold)
+print("Accuracy: %.2f%%" % (results_kfold.mean()*100.0)) 
+
+'''
 data = pandas.read_csv('../dati/datiCompleti/dataset1.csv', usecols = ['distanza','altezza','distanzaDx','distanzaSx'])
 predict = pandas.read_csv('../dati/datiCompleti/dataset1.csv', usecols = ['Sesso'])
 
@@ -24,10 +42,9 @@ p_test = model.predict(X_test)
 acc_train = accuracy_score(y_train, p_train)
 acc_test = accuracy_score(y_test, p_test)
 
-plot_confusion_matrix(y_test, p_test)
-
 plt.show()
 
 print(confusion_matrix(y_test, p_test))
 
 print( f'Train {acc_train}, test {acc_test}')
+'''
