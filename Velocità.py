@@ -53,7 +53,7 @@ else:
         while i < len(dis):
             #temp1 = dis[i] + dis[i-1] + dis[i-2]
             temp1 = dis[i]*0.3
-            vel.append(round(temp1, 2))
+            vel.append(temp1)
             #i += 3
             i += 1
 
@@ -117,7 +117,7 @@ else:
         while i < len(disdx):
             #temp2 = dissx[i] + dissx[i-1] + dissx[i-2]
             temp2 = disdx[i]*0.3 
-            velDx.append(round(temp2, 2))
+            velDx.append(temp2)
             #i += 3
             i += 1
 
@@ -128,7 +128,7 @@ else:
         while i < len(dissx):
             #temp3 = disdx[i] + disdx[i-1] + disdx[i-2]
             temp3 = dissx[i]*0.3 
-            velSx.append(round(temp3, 2))
+            velSx.append(temp3)
             #i += 3
             i += 1 
 

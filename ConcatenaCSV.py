@@ -12,7 +12,6 @@ for filename in all_files:
         continue
     df = pd.read_csv(filename, index_col=None, header=0)
     li.append(df)
-
 result = pd.concat(li, axis = 1, sort = False)
 
 combined_csv = pd.concat(li, axis=0, ignore_index=True, sort = False) #per combinare più files uno sotto l' altro
@@ -21,5 +20,5 @@ result.to_csv('dati/datiCompleti/'+str(sys.argv[1])+'.csv', index=False, encodin
 
 #combined_csv.to_csv("dati/Emilio/combined_csv.csv", index=False, encoding='utf-8-sig')
 
-result.plot()
-plt.show()
+#result.plot()
+#plt.show()

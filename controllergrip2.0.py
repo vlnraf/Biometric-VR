@@ -97,6 +97,7 @@ print("Initializing OpenVR...")
 while retries < max_init_retries:
     try:
         openvr.init(openvr.VRApplication_Background)
+        poses = []
         break
     except openvr.OpenVRError as e:
         print("Error when initializing OpenVR (try {} / {})".format(
@@ -180,14 +181,15 @@ try:
 
             if interval:
                 with open('dati/'+str(sys.argv[2])+'/1_'+str(sys.argv[1])+str(sys.argv[2])+'.csv', mode='w', newline='') as csv_file:
-                    fieldnames = ['x', 'y', 'z', 'x2', 'y2', 'z2']
+                    fieldnames = ['x', 'y', 'z', 'x2', 'y2', 'z2','altezza']
                     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
                     writer.writeheader()
                     while(time.time() < t_end):
                         controller_1 = v.devices["controller_1"].get_pose_euler()
                         controller_2 = v.devices["controller_2"].get_pose_euler()
+                        hmd = v.devices["hmd_1"].get_pose_euler()
                         start = time.time()
-                        writer.writerow({'x': "%.2f" %controller_1[0], 'y': "%.2f" %controller_1[1], 'z': "%.2f" %controller_1[2], 'x2': "%.2f" %controller_2[0], 'y2': "%.2f" %controller_2[1], 'z2': "%.2f" %controller_2[2]})
+                        writer.writerow({'x': "%.2f" %controller_1[0], 'y': "%.2f" %controller_1[1], 'z': "%.2f" %controller_1[2], 'x2': "%.2f" %controller_2[0], 'y2': "%.2f" %controller_2[1], 'z2': "%.2f" %controller_2[2],'altezza' : "%.2f" %hmd[1]})
                         #writer.writerow({'x': '0.12', 'y': '0.13', 'z': '0.14'})
                         sleep_time = interval-(time.time()-start)           #Calcolo del tempo T, che serve per stampare ogni T
                         if sleep_time>0:
