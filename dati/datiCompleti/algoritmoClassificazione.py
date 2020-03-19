@@ -73,12 +73,13 @@ X_train, X_test, y_train, y_test = train_test_split(dummy_x,Y, test_size = 0.3)
 print('Calcolo...')
 
 keras_model = baseline_model()
+
 history = keras_model.fit(X_train, y_train, epochs = 50, batch_size = 330, verbose = 1,validation_split=0.33)
+>>>>>>
 
 y_score = keras_model.predict(X_test)
 score = keras_model.evaluate(X_test, y_test, verbose=0)
 score1 = keras_model.evaluate(X_train, y_train, verbose=0)
-
 
 y_test2 = [np.argmax(t) for t in y_test]
 y_pred = [np.argmax(t) for t in y_score]
@@ -109,6 +110,7 @@ plt.ylabel('loss')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.show()
+
 #print(confusion_matrix(y_test, predictions))
 plot_confusion_matrix(y_test2, y_pred, cmap=plt.cm.Oranges)
 plt.show()
